@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Health Records</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <button id="menu-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i><span>Menu</span></button>
+    
+    <div id="user-info" style="display: none;">
+        <i class="fas fa-user-circle"></i>
+        <span id="username-display"></span>
+        <button onclick="logout()" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    </div>
+
+    <div id="sidebar">
+        <div class="sidebar-header">
+            <h3><i class="fas fa-hospital"></i> Health Records</h3>
+        </div>
+        <a href="#" onclick="showPage('patient-search')"><i class="fas fa-search"></i> Search Patient</a>
+        <a href="#" onclick="showPage('add-patient')"><i class="fas fa-user-plus"></i> Add Patient</a>
+        <a href="#" onclick="showPage('user-profile')"><i class="fas fa-user-cog"></i> My Profile</a>
+    </div>
+
+    <div id="content">
+        <!-- Login Page -->
+        <div id="login" class="page active">
+            <div class="form-container">
+                <div class="form-header">
+                    <i class="fas fa-hospital-user form-icon"></i>
+                    <h2>Login</h2>
+                </div>
+                <form id="login-form">
+                    <div class="input-group">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" id="login-identifier" placeholder="Username or Email" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="login-password" placeholder="Password" required>
+                    </div>
+                    <button type="submit"><i class="fas fa-sign-in-alt"></i> Login</button>
+                    <p class="form-link">Don't have an account? <a href="#" onclick="showPage('signup')">Sign Up</a></p>
+                </form>
+            </div>
+        </div>
+
+        <!-- Sign Up Page -->
+        <div id="signup" class="page">
+            <div class="form-container">
+                <div class="form-header">
+                    <i class="fas fa-user-plus form-icon"></i>
+                    <h2>Sign Up</h2>
+                </div>
+                <form id="signup-form">
+                    <div class="input-group">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" id="signup-fullname" placeholder="Full Name" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-user-tag input-icon"></i>
+                        <input type="text" id="signup-username" placeholder="Username" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="email" id="signup-email" placeholder="Email" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="signup-password" placeholder="Password" required>
+                    </div>
+                    <button type="submit"><i class="fas fa-user-plus"></i> Sign Up</button>
+                    <p class="form-link">Already have an account? <a href="#" onclick="showPage('login')">Login</a></p>
+                </form>
+            </div>
+        </div>
+
+        <!-- Patient Search Page -->
+        <div id="patient-search" class="page">
+            <h2><i class="fas fa-search"></i> Search Patient</h2>
+            <div class="form-container">
+                <div class="search-container">
+                    <input type="text" id="search-input" placeholder="Enter Patient ID or Name">
+                    <button onclick="searchPatients()"><i class="fas fa-search"></i> Search</button>
+                </div>
+                <div id="search-results"></div>
+            </div>
+        </div>
+
+        <!-- Add Patient Page -->
+        <div id="add-patient" class="page">
+            <h2><i class="fas fa-user-plus"></i> Add New Patient</h2>
+            <div class="form-container">
+                <form id="patient-form">
+                    <div class="input-group">
+                        <i class="fas fa-id-card input-icon"></i>
+                        <input type="text" id="patient-id" placeholder="Patient ID" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" id="patient-name" placeholder="Full Name" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-birthday-cake input-icon"></i>
+                        <input type="number" id="patient-age" placeholder="Age" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-phone input-icon"></i>
+                        <input type="tel" id="patient-phone" placeholder="Phone Number" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-venus-mars input-icon"></i>
+                        <select id="patient-gender" required>
+                            <option value="">Select Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-map-marker-alt input-icon"></i>
+                        <textarea id="patient-address" placeholder="Address" required></textarea>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-notes-medical input-icon"></i>
+                        <textarea id="medical-history" placeholder="Medical History"></textarea>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-pills input-icon"></i>
+                        <textarea id="current-medications" placeholder="Current Medications"></textarea>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-allergies input-icon"></i>
+                        <textarea id="allergies" placeholder="Allergies"></textarea>
+                    </div>
+                    <button type="submit"><i class="fas fa-save"></i> Save Patient Record</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- User Profile Page -->
+        <div id="user-profile" class="page">
+            <h2><i class="fas fa-user-circle"></i> My Profile</h2>
+            <div class="form-container">
+                <div id="profile-info"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html> 
